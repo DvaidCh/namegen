@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>nameGen</title>
+	<script type="text/javascript" name="packs">
+		function rndEl(arr){
+				return arr[Math.ceil(Math.random()*arr.length)-1]	
+			}
+		function capitalizeFirstLetter(string) {
+    		return string.charAt(0).toUpperCase() + string.slice(1);
+		}
+		psdWprt=function(text){
+			var prt={};
+			prt.first=text;
+			prt.middle="";
+			prt.last="";
+			prt.toString=function(){
+				return prt.first+prt.middle+prt.last;
+			}
+			return prt;
+		}
+		function flpc(){return Math.round(Math.random()+0.4)+0};
+		slav={
+			fPart:["m","s","sl","k","n","tv","t","kr","l","p","g","hr","pš","ž","ml","č","šk","pl","c","st","v"],
+			mPart:["i","o","e","a","u","y","je","ja","ju","jy"],
+			lPart:["r","n","b","t","š","k","g","vn","rp","z","h","d","v","c","č"],
+			connector:["o","e","i","u","a","y",""],
+			finnisher:["a","ar","ek","na","","y","ka","ica"],
+			wPart:function(){
+				var prt={};
+			 	prt.first=rndEl(slav.fPart);
+				prt.middle=rndEl(slav.mPart);
+				prt.last=rndEl(slav.lPart);
+				prt.toString=function(){
+					return prt.first+prt.middle+prt.last;
+				}
+				return prt
+			},
+
+			Word:function(length){
+				if(!(length>0))length=Math.random()*2+1;
+				var word={wParts:[]};
+				for(var i=length;i>1;i--){
+				word.wParts.push(slav.wPart());
+				if(i>2)word.wParts.push(psdWprt(rndEl(slav.connector)));
+				};
+				word.wParts.push(psdWprt(rndEl(slav.finnisher)));
+				word.toString=function(){
+					var str ="";
+					for(var i=0;i<word.wParts.length-1;i++)
+						str+=(word.wParts[i]);
+					
+					return str;
+				}
+				return word;
+			},
+			Name:function(length){
+				var wrd=slav.Word(length);
+				wrd.wParts[0].first=capitalizeFirstLetter(wrd.wParts[0].first);
+				wrd.wParts.push(psdWprt(rndEl(slav.finnisher)));
+				return wrd
+			}
+		}
+		germ={
+			fPart:["gr","g","r","kr","k","tk","t","h","hl","l","b"],
+			mPart:["a","u","i","e","o"],
+			lPart:["lf","l","f","sf","s","ss","st","sh","sd","sh","lh","rg","dt","n",""],
+			finnisher:["bar", "chen", "e", "ei", "el", "en", "er", "heit", "ig", "in", "keit", "lich", "ling", "nis", "ung",""],
+			wPart:function(){
+				var prt={};
+			 	prt.first=rndEl(germ.fPart);
+				prt.middle=rndEl(germ.mPart);
+				prt.last=rndEl(germ.lPart);
+				prt.toString=function(){
+					return prt.first+prt.middle+prt.last;
+				}
+				return prt
+			},
+			
+			Word:function(length){
+				if(!(length>0))length=Math.random()*3+1;
+				var word={wParts:[]};
+				for(var i=length;i>1;i--){
+				word.wParts.push(germ.wPart());
+				};
+				word.toString=function(){
+					var str =""
+					for(var i=0;i<word.wParts.length;i++)str+=(word.wParts[i]);
+					return str;
+				}
+				return word;
+			},
+			Name:function(length){
+				if(!(length>0))length=Math.random()*5+1;
+				var wrd=germ.Word(length);
+				wrd.wParts[0].first=capitalizeFirstLetter(wrd.wParts[0].first);
+				wrd.wParts.push(psdWprt(rndEl(germ.finnisher)));
+				return wrd
+			}
+		}
+		simpo={
+			fPart:["k","l","t","d","r","p","m","n","b"],
+			mPart:["o","a","u","i","e"],
+			wPart:function(){
+				var prt={};
+			 	prt.first=rndEl(simpo.fPart);
+				prt.middle=rndEl(simpo.mPart);
+				prt.toString=function(){
+					return prt.first+prt.middle;
+				}
+				return prt	
+			},
+			Word:function(length){
+				if(!(length>0))length=Math.random()*5+2;
+				var word={wParts:[]};
+				for(var i=length;i>1;i--){
+				word.wParts.push(simpo.wPart());
+				};
+				word.toString=function(){
+					var str ="";
+					for(var i=0;i<word.wParts.length;i++)str+=(word.wParts[i]);
+					return str;
+				}
+				word.wParts.push(psdWprt(rndEl(simpo.fPart)));
+				return word;
+			},
+			Name:function(length){
+				var wrd=simpo.Word(length);
+				wrd.wParts[0].first=wrd.wParts[0].first.toUpperCase();
+				wrd.wParts.push(rndEl(simpo.mPart));
+				return wrd
+			}
+		}
+		sovietiano={
+			fPart:["K","L","T","D","R","P","M","N","S","Ps","Pr","Sh","G","Gr","Kr","Z","Zh","C","V","B","Br","Tr","H",""],
+			mPart:["o","a","u","i","e"],
+			lPart:["k","l","t","d","r","p","m","n","s","sh","g","z","zh","c","v","b","rp","sp","h","vn"],
+			wPart:function(){
+				var prt={};
+			 	prt.first=rndEl(sovietiano.fPart);
+				prt.middle=rndEl(sovietiano.mPart);
+				prt.last=rndEl(sovietiano.lPart);
+				prt.toString=function(){
+					return prt.first+prt.middle+prt.last;
+				}
+				if(prt.first=="")prt.middle=prt.middle.toUpperCase();
+				return prt
+			},
+			Word:function(length){
+				if(!(length>0))length=Math.random()*3+3;
+				var word={wParts:[]};
+				for(var i=length;i>1;i--){
+				word.wParts.push(sovietiano.wPart());
+				};
+				word.toString=function(){
+					var str =""
+					for(var i=0;i<word.wParts.length;i++)str+=(word.wParts[i]);
+					return str;
+				}
+				
+				return word;
+			}
+		}
+		cyrsovietiano={
+			fPart:["К","Л","Т","Д","Р","П","М","Н","С","Пр","Ш","Г","Гр","Кр","З","Ж","Ц","В","Б","Бр","Тр","Х",""],
+			mPart:["о","а","у","и"],
+			lPart:["к","л","т","д","р","п","м","н","с","ш","г","з","ж","ц","в","б","рп","сп","х","вн"],
+			wPart:function(){
+				var prt={};
+			 	prt.first=rndEl(cyrsovietiano.fPart);
+				prt.middle=rndEl(cyrsovietiano.mPart);
+				prt.last=rndEl(cyrsovietiano.lPart);
+				prt.toString=function(){
+					return prt.first+prt.middle+prt.last;
+				}
+				if(prt.first=="")prt.middle=prt.middle.toUpperCase();
+
+				return prt
+			},
+			Word:function(length){
+				if(!(length>0))length=Math.random()*3+3;
+				var word={wParts:[]};
+				for(var i=length;i>1;i--){
+				word.wParts.push(cyrsovietiano.wPart());
+				};
+				word.toString=function(){
+					var str =""
+					for(var i=0;i<word.wParts.length;i++)str+=(word.wParts[i]);
+					return str;
+				}
+				return word;
+			}
+		}
+	</script>
+	<script type="text/javascript">
+		linebreak = document.createElement("br");
+		function addToBox(text){
+			document.getElementById("box").innerHTML+="<br/>"+text;
+		}
+	</script>
+	<style type="text/css">
+		.lang{
+			background: rgba(100,100,100,0.5);border:solid 2px darkred;border-radius: 5%;margin: 5px;
+		}
+		.button{
+			cursor: pointer;
+			color: navy;
+			background: linear-gradient(5deg,gray,darkgray,silver,azure,aliceblue);
+		}
+		body>div>.button{
+			border-radius: 5%;
+			margin: 2px;
+			width: fit-content;
+		}
+		.button:hover:active {background: linear-gradient(5deg,gold,darkgoldenrod,goldenrod,palegoldenrod);user-select: none;}
+		.word{
+			background: linear-gradient(5deg,olive,olivedrab,darkolivegreen);
+		}
+		.name{
+			background: linear-gradient(5deg,darkslateblue,mediumorchid,darkorchid);;
+		}
+	</style>
+</head>
+<body style="display: flex;">
+<div style="width: 45%;height:fit-content;background: linear-gradient(12deg,skyblue,darkred,silver);border:solid 2px darkred;border-radius: 5%;">
+	<br>
+	<div class="lang">
+		<div class="name button" onclick="addToBox(slav.Name().toString())">Slavic name</div>	
+		<div class="word button" onclick="addToBox(slav.Word().toString())">Slavic word</div>
+	</div>
+	<div class="lang">
+		<div class="name button" onclick="addToBox(germ.Name().toString())">Germanic name</div>	
+		<div class="word button" onclick="addToBox(germ.Word().toString())">Germanic word</div>
+	</div>
+	<div class="lang">
+		<div class="name button" onclick="addToBox(simpo.Name().toString())">Simpo name</div>	
+		<div class="word button" onclick="addToBox(simpo.Word().toString())">Simpo word</div>
+	</div>
+	<div class="lang">
+		<div class="word button" onclick="addToBox(sovietiano.Word().toString())">Sovetiano word</div>
+	</div>
+	<div class="lang">
+		<div class="word button" onclick="addToBox(cyrsovietiano.Word().toString())">5оvет1аио wогд</div>
+	</div>
+	<div class="button" onclick="(function(){document.getElementById('box').innerHTML=''})()">delete history</div>
+	<br>
+</div>
+<div id="box" style="  overflow: scroll;
+  scrollbar-color: red orange;
+  scrollbar-width: thin;height: 75vh;width: 45%;background: linear-gradient(12deg,antiquewhite,beige,blanchedalmond);border:solid 2px darkred;">
+</div>
+
+</body>
+</html>
