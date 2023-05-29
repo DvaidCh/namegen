@@ -197,7 +197,7 @@
 	<script type="text/javascript">
 		linebreak = document.createElement("br");
 		function addToBox(text){
-			document.getElementById("box").innerHTML+="<br/>"+text;
+			document.getElementById("box").innerHTML=text+"<br/>"+document.getElementById("box").innerHTML;
 		}
 	</script>
 	<style type="text/css">
